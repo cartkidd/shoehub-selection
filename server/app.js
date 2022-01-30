@@ -1,10 +1,23 @@
-//Get the express library from node_modules which we have just downloaded.
 const express = require("express");
 
-//Making const of express() into a variable (JS function first class Object).
+const { graphqlHTTP } = require('express-graphql');
+
+const schema = require("./schema/schema");
+
 const app = express();
 
-//When our application starts, it will listen on port 4000
+
+
+
+app.use(
+    "/graphql",
+    graphqlHTTP({
+      schema: schema,
+      graphiql: true
+    })
+  );
+
+
 app.listen(4000, () => {
   console.log("Server is listening on port 4000");
 });
