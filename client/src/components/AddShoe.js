@@ -2,7 +2,7 @@ import React from "react";
 import { getOwnersQuery } from "./../queries/queries";
 import { graphql } from "react-apollo";
 
-const AddCar = props => {
+const AddShoe = props => {
   const getOwners = () => {
     var data = props.data;
     if (data.loading) {
