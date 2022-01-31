@@ -1,7 +1,7 @@
 import React from "react";
 import ApolloClient from "apollo-boost"; //connect with our server which is running at backend
 import { ApolloProvider } from "react-apollo"; // Connect re
-import CarList from "./components/CarList";
+
 import ShoeList from "./components/ShoeList";
 
 const client = new ApolloClient({
