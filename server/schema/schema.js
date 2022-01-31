@@ -2,6 +2,9 @@ const graphql = require("graphql"); //use graphql package
 
 const _ = require("lodash");
 
+const shoes = require("../models/shoe");
+const owners = require("../models/owner");
+
 /*Getting GraphQLObjectType function from 'graphql' to define the (dataType) 
  structure of our queries and their model type.
 */
@@ -28,7 +31,7 @@ const ShoeType = new GraphQLObjectType({
         owner: { 
             type: OwnerType,
             resolve(parent, args) {
-                //return _.find(OwnersArray, { id: parent.ownerId });
+                return owners.findById(parent.ownerId);  
             }
         }//owner 
     })
@@ -45,7 +48,7 @@ const OwnerType = new GraphQLObjectType({
         shoes: {  // Supporting list of cars query in Owner type
             type: new GraphQLList(ShoeType),
             resolve(parent, args) {
-                //return _.filter(ShoesArray, { ownerId: parent.id });
+                return shoes.find({ ownerId: parent.id });
             }
         }
     })
@@ -67,26 +70,26 @@ const RootQuery = new GraphQLObjectType({
                  * With the help of lodash library(_), we are trying to find car with id from 'CarsArray'
                  * and returning its required data to calling tool.
                  */
-               // return _.find(ShoesArray, { id: args.id });
+                 return shoes.findById(args.id);
             } //resolve function
-        }, //car query ends here
+        }, //shoe query ends here
         owner: {
             type: OwnerType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                //return _.find(OwnersArray, { id: args.id });
+                return owners.findById(args.id);
             }
         },
         shoes: {
             type: new GraphQLList(ShoeType),
             resolve(parent, args) {
-                return CarsArray;
+                return shoes.find({})
             }
-        },//cars query
+        },//shoe query
         owners: {
             type: new GraphQLList(OwnerType),
             resolve(parent, args) {
-                //return OwnersArray;
+                return owners.find({});
             }
         }
     } //fields end here
@@ -108,9 +111,28 @@ const Mutation = new GraphQLObjectType({
             age: args.age,
             gender: args.gender
           });
-          return owner.save(); //create owner data in mlab
+          return owner.save(); 
         }
-      }
+      },
+      addShoe: {
+        type: ShoeType,
+        args: {
+          name: { type: GraphQLString },
+          model: { type: GraphQLInt },
+          company: { type: GraphQLString },
+          ownerId: { type: GraphQLID }
+        },
+        resolve(parent, args) {
+          let shoe = new shoes({
+            name: args.name,
+            model: args.model,
+            company: args.company,
+            ownerId: args.ownerId
+          });
+  
+          return shoe.save();
+        }
+      }//addShoe
     } //fields ends here
   });
 
