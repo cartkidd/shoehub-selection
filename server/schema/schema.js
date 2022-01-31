@@ -12,25 +12,10 @@ const {
     GraphQLInt,
     GraphQLSchema,
     GraphQLList
-
 } = graphql;
 
-const ShoesArray = [
-    { id: "1", name: "Nike Air Force 1", model: "2019", company: "Nike", ownerId: "1" },
-    { id: "2", name: "Loafers", model: "2019", company: "Cole Haan", ownerId: "2" },
-    { id: "3", name: "Yeezy", model: "2019", company: "Adidas", ownerId: "2" },
-    { id: "4", name: "990", model: "2019", company: "New Balanace", ownerId: "1" },
-    { id: "5", name: "Chain Reactions", model: "2019", company: "Versace", ownerId: "1" },
-    { id: "6", name: "Chucks", model: "2019", company: "Converse", ownerId: "3" }
-];
 
-var OwnersArray = [
-    { id: "1", name: "Vinod Chauhan", age: 27, gender: "male" },
-    { id: "2", name: "John Dow", age: 46, gender: "male" },
-    { id: "3", name: "Kristen", age: 30, gender: "female" },
-    { id: "4", name: "Paris", age: 44, gender: "female" },
-    { id: "5", name: "Sylvestor", age: 26, gender: "male" }
-];
+
 
 //Defining ShoeType with its fields.
 const ShoeType = new GraphQLObjectType({
@@ -40,10 +25,10 @@ const ShoeType = new GraphQLObjectType({
         name: { type: GraphQLString },
         model: { type: GraphQLInt },
         company: { type: GraphQLString },
-        owner: { //Supporting pwner query in ShoeType
+        owner: { 
             type: OwnerType,
             resolve(parent, args) {
-                return _.find(OwnersArray, { id: parent.ownerId });
+                //return _.find(OwnersArray, { id: parent.ownerId });
             }
         }//owner 
     })
@@ -60,7 +45,7 @@ const OwnerType = new GraphQLObjectType({
         shoes: {  // Supporting list of cars query in Owner type
             type: new GraphQLList(ShoeType),
             resolve(parent, args) {
-                return _.filter(ShoesArray, { ownerId: parent.id });
+                //return _.filter(ShoesArray, { ownerId: parent.id });
             }
         }
     })
@@ -82,14 +67,14 @@ const RootQuery = new GraphQLObjectType({
                  * With the help of lodash library(_), we are trying to find car with id from 'CarsArray'
                  * and returning its required data to calling tool.
                  */
-                return _.find(ShoesArray, { id: args.id });
+               // return _.find(ShoesArray, { id: args.id });
             } //resolve function
         }, //car query ends here
         owner: {
             type: OwnerType,
             args: { id: { type: GraphQLID } },
             resolve(parent, args) {
-                return _.find(OwnersArray, { id: args.id });
+                //return _.find(OwnersArray, { id: args.id });
             }
         },
         shoes: {
@@ -101,11 +86,33 @@ const RootQuery = new GraphQLObjectType({
         owners: {
             type: new GraphQLList(OwnerType),
             resolve(parent, args) {
-                return OwnersArray;
+                //return OwnersArray;
             }
         }
     } //fields end here
 });
+
+const Mutation = new GraphQLObjectType({
+    name: "Mutation",
+    fields: {
+      addOwner: {    // To add Owner in DB
+        type: OwnerType,
+        args: {
+          name: { type: GraphQLString },
+          age: { type: GraphQLInt },
+          gender: { type: GraphQLString }
+        },
+        resolve(parent, args) {
+          let owner = new owners({
+            name: args.name,
+            age: args.age,
+            gender: args.gender
+          });
+          return owner.save(); //create owner data in mlab
+        }
+      }
+    } //fields ends here
+  });
 
 //exporting 'GraphQLSchema with RootQuery' for GraphqlHTTP middleware.
 module.exports = new GraphQLSchema({
