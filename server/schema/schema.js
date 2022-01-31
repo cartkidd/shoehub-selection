@@ -116,5 +116,6 @@ const Mutation = new GraphQLObjectType({
 
 //exporting 'GraphQLSchema with RootQuery' for GraphqlHTTP middleware.
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation: Mutation
 });
