@@ -3,7 +3,18 @@ import { graphql } from "react-apollo";
 import getShoesQuery from "./../queries/queries";
 
 const ShoeList = props => {
-  console.log(props); //check in the browser to see this values.
+  console.log(props); 
+
+  const displayShoes = () => {
+    var data = props.data;
+    if (data.loading) {
+      return <div>Loading Shoes...</div>;
+    } else {
+      return data.shoes.map(car => {
+        return <li key={shoe.id}>{shoe.name}</li>;
+      });
+    }
+  };
   return (
     <>
       <ul id="shoeList">
