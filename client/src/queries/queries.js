@@ -19,7 +19,16 @@ const getOwnersQuery = gql`
   }
 `;
 
-export { getShoesQuery, getOwnersQuery };
+const AddShoeMutation = gql`
+  mutation($name: String!, $model: Int!, $company: String!, $ownerId: ID!) {
+    addShoe(name: $name, model: $model, company: $company, ownerId: $ownerId) {
+      name
+      id
+    }
+  }
+`;
+
+export { getShoesQuery, getOwnersQuery, AddShoeMutation };
 
 
 

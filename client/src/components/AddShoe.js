@@ -1,12 +1,26 @@
-
 import React from "react";
-import { getOwnersQuery } from "./../queries/queries";
+import { compose } from "recompose";
+import {
+  getOwnersQuery,
+  AddShoeMutation,
+  getShoesQuery
+} from "./../queries/queries";
 import { graphql } from "react-apollo";
-import { HandleFormHook}  from "./../hooks/handleFormHook";
+import HandleFormHook from "./../hooks/handleFormHook";
 
 const AddShoe = props => {
   const getFormData = () => {
     console.log(`${inputs}`);
+//Hitting AddShoeMutation with arguments.
+    props.AddShoeMutation({
+      variables: {
+        name: inputs.carName,
+        model: parseInt(inputs.model),
+        company: inputs.company,
+        ownerId: inputs.owner
+      },
+      refetchQueries: [{ query: getShoesQuery }] 
+    });
   };
 
   const { inputs, handleInputChange, handleSubmit } = HandleFormHook(
@@ -14,7 +28,7 @@ const AddShoe = props => {
   );
 
   const getOwners = () => {
-    var data = props.data;
+    var data = props.getOwnersQuery;
     if (data.loading) {
       return <option disabled>Owner loading...</option>;
     } else {
@@ -35,9 +49,9 @@ const AddShoe = props => {
           <label>Shoe Name</label>
           <input
             type="text"
-            name="carName"
+            name="ShoeName"
             onChange={handleInputChange}
-            value={inputs.shoeName}
+            value={inputs.carName}
           ></input>
         </div>
         <div className="field">
@@ -75,4 +89,8 @@ const AddShoe = props => {
   );
 };
 
-export default graphql(getOwnersQuery)(AddShoe);
+//For hitting two queries we need compose library.
+export default compose(
+  graphql(getOwnersQuery, { name: "getOwnersQuery" }),
+  graphql(AddShoeMutation, { name: "AddShoeMutation" })
+)(AddShoe);
