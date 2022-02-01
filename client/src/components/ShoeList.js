@@ -1,27 +1,26 @@
 import React from "react";
 import { graphql } from "react-apollo";
-import getShoesQuery from "./../queries/queries";
+import { getShoesQuery } from "./../queries/queries";
 
 const ShoeList = props => {
-  console.log(props); 
+  console.log(props);
 
   const displayShoes = () => {
     var data = props.data;
     if (data.loading) {
       return <div>Loading Shoes...</div>;
     } else {
-      return data.shoes.map(car => {
+      return data.shoes.map(shoe => {
         return <li key={shoe.id}>{shoe.name}</li>;
       });
     }
   };
+
   return (
     <>
-      <ul id="shoeList">
-        <li>ShoeName</li>
-      </ul>
+      <ul id="shoeList">{displayShoes()}</ul>
     </>
   );
 };
 
-export default graphql(getShoesQuery)(ShoeList); //HOC
+export default graphql(getShoesQuery)(ShoeList);

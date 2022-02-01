@@ -1,3 +1,4 @@
+//queries.js
 import { gql } from "apollo-boost";
 
 const getShoesQuery = gql`
@@ -9,4 +10,16 @@ const getShoesQuery = gql`
   }
 `;
 
-export default getShoesQuery;
+const getOwnersQuery = gql`
+  {
+    owners {
+      name
+      id
+    }
+  }
+`;
+
+export { getShoesQuery, getOwnersQuery };
+
+
+

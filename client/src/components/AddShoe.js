@@ -23,7 +23,7 @@ const AddShoe = props => {
       <form>
         <div className="field">
           <label>Shoe Name</label>
-          <input type="text" name="carName"></input>
+          <input type="text" name="shoeName"></input>
         </div>
         <div className="field">
           <label>Model</label>
