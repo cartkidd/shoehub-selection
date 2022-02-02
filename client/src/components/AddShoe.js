@@ -9,12 +9,13 @@ import { graphql } from "react-apollo";
 import HandleFormHook from "./../hooks/handleFormHook";
 
 const AddShoe = props => {
+    console.log(props)
   const getFormData = () => {
-    console.log(`${inputs}`);
+    console.log(inputs.ShoeName);
 //Hitting AddShoeMutation with arguments.
-    props.AddShoeMutation({
+    props.AddShoe({
       variables: {
-        name: inputs.carName,
+        ShoeName: inputs.ShoeName,
         model: parseInt(inputs.model),
         company: inputs.company,
         ownerId: inputs.owner
@@ -51,7 +52,7 @@ const AddShoe = props => {
             type="text"
             name="ShoeName"
             onChange={handleInputChange}
-            value={inputs.carName}
+            value={inputs.shoeName}
           ></input>
         </div>
         <div className="field">
@@ -92,5 +93,5 @@ const AddShoe = props => {
 //For hitting two queries we need compose library.
 export default compose(
   graphql(getOwnersQuery, { name: "getOwnersQuery" }),
-  graphql(AddShoeMutation, { name: "AddShoeMutation" })
+  graphql(AddShoeMutation, { name: "AddShoe" })
 )(AddShoe);

@@ -20,8 +20,8 @@ const getOwnersQuery = gql`
 `;
 
 const AddShoeMutation = gql`
-  mutation($name: String!, $model: Int!, $company: String!, $ownerId: ID!) {
-    addShoe(name: $name, model: $model, company: $company, ownerId: $ownerId) {
+  mutation($ShoeName: String!, $model: Int!, $company: String!, $ownerId: ID!) {
+    addShoe(name: $ShoeName, model: $model, company: $company, ownerId: $ownerId) {
       name
       id
     }
