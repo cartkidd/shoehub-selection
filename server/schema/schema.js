@@ -45,7 +45,7 @@ const OwnerType = new GraphQLObjectType({
         name: { type: GraphQLString },
         age: { type: GraphQLInt },
         gender: { type: GraphQLString },
-        shoes: {  // Supporting list of cars query in Owner type
+        shoes: {  
             type: new GraphQLList(ShoeType),
             resolve(parent, args) {
                 return shoes.find({ ownerId: parent.id });
@@ -58,20 +58,16 @@ const OwnerType = new GraphQLObjectType({
 const RootQuery = new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
-        // Fields here will be the query for frontends
-        //We are defining a 'car' query which can take (car ID ) to search in DB.
+        
+        //We are defining a 'shoe' query 
         Shoe: {
-            type: ShoeType, //Defining model for car Query
+            type: ShoeType, 
             args: { id: { type: GraphQLID } },
-            //args field to extract argument came with car query, e.g : Id of the car object to extract its details.
+           
             resolve(parent, args) {
-                //code to get value  from DB
-                /**
-                 * With the help of lodash library(_), we are trying to find car with id from 'CarsArray'
-                 * and returning its required data to calling tool.
-                 */
+                
                  return shoes.findById(args.id);
-            } //resolve function
+            } 
         }, //shoe query ends here
         owner: {
             type: OwnerType,
@@ -92,13 +88,13 @@ const RootQuery = new GraphQLObjectType({
                 return owners.find({});
             }
         }
-    } //fields end here
+    } 
 });
 
 const Mutation = new GraphQLObjectType({
     name: "Mutation",
     fields: {
-      addOwner: {    // To add Owner in DB
+      addOwner: {    
         type: OwnerType,
         args: {
           name: { type: GraphQLString },
@@ -132,11 +128,11 @@ const Mutation = new GraphQLObjectType({
   
           return shoe.save();
         }
-      }//addShoe
-    } //fields ends here
+      }
+    } 
   });
 
-//exporting 'GraphQLSchema with RootQuery' for GraphqlHTTP middleware.
+
 module.exports = new GraphQLSchema({
     query: RootQuery,
     mutation: Mutation

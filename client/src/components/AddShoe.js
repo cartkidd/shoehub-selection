@@ -9,7 +9,7 @@ import { graphql } from "react-apollo";
 import HandleFormHook from "./../hooks/handleFormHook";
 
 const AddShoe = props => {
-    console.log(props)
+    //console.log(props)
   const getFormData = () => {
     console.log(inputs.ShoeName);
 //Hitting AddShoeMutation with arguments.

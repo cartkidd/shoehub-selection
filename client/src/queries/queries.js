@@ -28,7 +28,28 @@ const AddShoeMutation = gql`
   }
 `;
 
-export { getShoesQuery, getOwnersQuery, AddShoeMutation };
+const getShoeQuery = gql`
+  query($id: ID!) {
+    Shoe(id: $id) {
+      id
+      name
+      model
+      company
+      owner {
+        id
+        name
+        age
+        shoe {
+          name
+          company
+          id
+        }
+      }
+    }
+  }
+`;
+
+export { getShoesQuery, getOwnersQuery, AddShoeMutation, getShoeQuery };
 
 
 
