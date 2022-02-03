@@ -11,7 +11,7 @@ const ShoeDetails = props => {
     if (Shoe) {
       return (
         <div>
-          <h2>{shoe.ShoeName}</h2>
+          <h2>{Shoe.ShoeName}</h2>
           <p>model : {Shoe.model}</p>
           <p>company : {Shoe.company}</p>
           <p>owner : {Shoe.owner.name}</p>
