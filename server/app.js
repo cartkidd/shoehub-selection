@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path")
 
 const { graphqlHTTP } = require('express-graphql');
 
@@ -30,6 +31,15 @@ app.use(
   );
 
 let port = process.env.PORT || 5000
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../client/build')));
+}
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/build/index.html'));
+});
+
 app.listen(port, () => {
-  console.log("Server is listening on port 4000");
+  console.log("Server is listening on port 5000");
 });

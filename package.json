@@ -2,9 +2,12 @@
   "name": "shoehub-selection",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/app.js",
   "scripts": {
-    "start": "node server/app.js && node client/app.js",
+    "start": "node server/app.js",
+    "install": "cd server && npm install && cd ../client && npm install",
+    "develop": "concurrently \"cd server && npm start\" \"cd client && npm start\"",
+    "build": "cd client && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
