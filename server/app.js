@@ -14,7 +14,7 @@ const app = express();
 app.use(cors());
 
 
-mongoose.connect(
+mongoose.connect(process.env.MONGO_URI ||
     "mongodb://localhost:27017/myapp",
     { useNewUrlParser: true },
     () => {
