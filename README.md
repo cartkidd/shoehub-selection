@@ -1,6 +1,6 @@
 # shoehub-selection
 
-## Project 3 - The Score (A MERN Stack App)
+## Project 3 - Shoehub-Selectio (A MERN Stack App)
 ## Overview
 This MERN Stack app was the third project that I completed whilst at Gw. This project was completed over the course of Forever days . 
 
@@ -21,11 +21,13 @@ Technologies Used
 HTML
 React
 React Hooks
-CSS/SASS
+
 JavaScript
 Node.js
 Express
 Webpack
 Mongoose
 MongoDB
-B
+B 
+
+## Cartrell Kidd
