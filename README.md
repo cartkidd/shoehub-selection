@@ -21,7 +21,6 @@ Technologies Used
 HTML
 React
 React Hooks
-
 JavaScript
 Node.js
 Express
