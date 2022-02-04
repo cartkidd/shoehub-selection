@@ -17,7 +17,8 @@ Build a complete product which had multiple relationships and CRUD functionality
 Implement thoughtful user stories/wireframes that were significant enough to know which features were core MVP and which could be cut
 Have a visually impressive design
 Be deployed online so that it could be publicly accessible
-Technologies Used
+
+## Technologies Used
 HTML
 React
 React Hooks
