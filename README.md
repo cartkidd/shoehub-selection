@@ -18,6 +18,11 @@ Implement thoughtful user stories/wireframes that were significant enough to kno
 Have a visually impressive design
 Be deployed online so that it could be publicly accessible
 
+## Screenshot
+<img width="311" alt="Screen Shot 2022-02-03 at 10 20 43 PM" src="https://user-images.githubusercontent.com/88847604/152466689-88b43e75-4a89-4175-915e-2f5e2189fd51.png">
+
+
+
 ## Technologies Used
 HTML
 React
