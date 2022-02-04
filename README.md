@@ -30,4 +30,5 @@ Mongoose
 MongoDB
 B 
 
-## Cartrell Kidd
+## Author
+Cartrell Kidd
